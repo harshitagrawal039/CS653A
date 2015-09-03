@@ -6,14 +6,19 @@ type  Row = [String]
 type Table = [Row]
 type Width = [Int]
 
+{--
+padSingle :: String -> Int -> (Int, String)
+padSingle word size = (length word, word ++ (replicate diff ' '))
+	where
+		diff = size - length word
+--}
+
 -- Some helper functions
 pad :: Row -> Width ->[(Int, String)]
 pad t w1 = zipWith padSingle t w1
 	where
 		padSingle :: String -> Int -> (Int, String)
-		padSingle word size
-						| diff > 0 = (size, word ++ (replicate diff ' '))
-						| otherwise = (size - diff, word)
+		padSingle word size = (length word, word ++ (replicate diff ' '))
 						where
 							diff = size - length word
 
@@ -43,3 +48,4 @@ prettyPrint t = t1
 
 table = [["hi", "hello", "hey"], ["ram", "she", "sundar"], ["aloo", "karela", "ab"]]
 a = aux table [7,7,7] [0,0,0]
+b = prettyPrint table
