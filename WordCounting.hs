@@ -6,8 +6,10 @@
  (c) find frequency count of all words in a file (after removing some noise words like -"a", "an", "the")
 
  --}
---module WordCounting where 
+--module WordCounting where
 module Main where
+
+import System.Environment (getArgs)
 
 -- countWords count the number of words in a string
 countWords :: String -> Int
@@ -72,8 +74,9 @@ listFreq2 = aux . removeNoise . splitInWords where
 	aux []			= []
 
 main = do
-	print "Type your sentence:"
-	content <- getContents
+	(filename:_) <- getArgs 
+	--print "Type your sentence:"
+	content <- readFile filename
 	print $ "Number of words: " ++ show (countWords content)
 	print $ "List of all unique words:"
 	print $ listWords content
