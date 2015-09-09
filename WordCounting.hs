@@ -74,13 +74,15 @@ listFreq2 = aux . removeNoise . splitInWords where
 	aux []			= []
 
 main = do
-	(filename:_) <- getArgs 
-	--print "Type your sentence:"
-	content <- readFile filename
-	print $ "Number of words: " ++ show (countWords content)
-	print $ "List of all unique words:"
-	print $ listWords content
-	print "Frequencies:"
-	print $ listFreq2 content
-	print "Thankyou! Bye..."
+	x <- getArgs
+	if null x 
+		then return () 
+		else do
+			content <- readFile $ head x
+			print $ "Number of words: " ++ show (countWords content)
+			print $ "List of all unique words:"
+			print $ listWords content
+			print "Frequencies:"
+			print $ listFreq2 content
+			print "Thankyou! Bye..."
 
