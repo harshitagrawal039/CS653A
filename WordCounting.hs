@@ -1,3 +1,4 @@
+#! /usr/bin/runhaskell
 {--
  WordCounting.hs
  Q- Write a program to read a file and :
@@ -10,6 +11,7 @@
 module Main where
 
 import System.Environment (getArgs)
+import System.IO
 
 -- countWords count the number of words in a string
 countWords :: String -> Int
@@ -76,13 +78,15 @@ listFreq2 = aux . removeNoise . splitInWords where
 main = do
 	x <- getArgs
 	if null x 
-		then return () 
+		then return ()
 		else do
-			content <- readFile $ head x
+			handle <- openFile (head x) ReadMode
+			content <- hGetContents handle
 			print $ "Number of words: " ++ show (countWords content)
 			print $ "List of all unique words:"
 			print $ listWords content
 			print "Frequencies:"
 			print $ listFreq2 content
 			print "Thankyou! Bye..."
+			hClose handle
 
