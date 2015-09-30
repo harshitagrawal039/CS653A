@@ -1,9 +1,10 @@
 module Parser where
 
-import Control.Applicative hiding (many)
+import Control.Applicative hiding (many, (<|>))
 
 data Result a	= ParseError
 				| Ok a String
+				deriving Show
 
 data Parser a = Parser {runParser :: String -> Result a}
 
@@ -53,5 +54,27 @@ many (Parser pa) = Parser g
 			Ok a x		-> Ok (a:resta) restx
 				where
 					(Ok resta restx) = (runParser $ many (Parser pa)) x
+
+isAlpha :: Char -> Bool
+isAlpha x	| (x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z')	=	True
+			| otherwise											=	False
+
+isDigit :: Char -> Bool
+isDigit x 	| x >= '0' && x <= '9'	=	True
+			| otherwise				= 	False
+
+char :: Char -> Parser Char
+char x = satisfy (==x)
+
+digit :: Parser Char
+digit = satisfy isDigit
+
+letter :: Parser Char
+letter = satisfy isAlpha
+
+alphaNum :: Parser Char
+alphaNum = digit <|> letter
+
+
 
 
