@@ -87,6 +87,6 @@ main = do
 			print $ listWords content
 			print "Frequencies:"
 			print $ listFreq2 content
-			print "Thankyou! Bye..."
+			--print "Thankyou! Bye..."
 			hClose handle
 
