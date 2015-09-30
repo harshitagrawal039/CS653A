@@ -75,6 +75,15 @@ letter = satisfy isAlpha
 alphaNum :: Parser Char
 alphaNum = digit <|> letter
 
+cIdentifier :: Parser String
+cIdentifier =
+	do
+		x <- letter <|> char '_'
+		xs <- many $ alphaNum <|> char '_'
+		return (x:xs)
+
+
+
 
 
 
