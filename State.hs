@@ -33,4 +33,6 @@ stateOf :: (a,s) -> s
 stateOf = snd
 
 modify :: (s -> s) -> State s ()
-modify f = State $ \x -> ((), f x)
+modify f = do
+	s <- get
+	put $ f s
