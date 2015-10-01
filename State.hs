@@ -27,7 +27,7 @@ get :: State s s
 get = State (\s -> (s, s))
 
 put :: s -> State s ()
-put s = State (\_ -> ((), s))
+put s = State $ const ((), s)
 
 stateOf :: (a,s) -> s
 stateOf = snd
