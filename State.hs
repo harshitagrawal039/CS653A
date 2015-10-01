@@ -36,3 +36,16 @@ modify :: (s -> s) -> State s ()
 modify f = do
 	s <- get
 	put $ f s
+
+modifyAfter :: (s -> s) -> State s a -> State s a
+modifyAfter f sa = do
+	a <- sa
+	modify f
+	return a
+
+evalState :: State s a -> s -> a
+evalState sa = fst . runState sa
+
+execState :: State s a -> s -> s
+execState sa = stateOf . runState sa
+
