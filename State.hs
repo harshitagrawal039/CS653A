@@ -21,3 +21,10 @@ instance Monad (State s) where
 	(State sa) >>= f = State g where
 		g s0 = (runState . f) a s1  where
 			(a, s1) = sa s0
+
+-- Some helper functions
+get :: State s s
+get = State (\s -> (s, s))
+
+put :: s -> State s ()
+put s = State (\_ -> ((), s))
