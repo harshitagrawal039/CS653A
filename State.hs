@@ -28,3 +28,9 @@ get = State (\s -> (s, s))
 
 put :: s -> State s ()
 put s = State (\_ -> ((), s))
+
+stateOf :: (a,s) -> s
+stateOf = snd
+
+modify :: (s -> s) -> State s ()
+modify f = State $ \x -> ((), f x)
